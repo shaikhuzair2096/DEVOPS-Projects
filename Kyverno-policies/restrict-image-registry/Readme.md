@@ -51,5 +51,5 @@ gcloud kms keys create cosign-key \
   --purpose=asymmetric-signing \
   --default-algorithm=ec-sign-p256-sha256
 
- <b>```</b>
+ ```bash
   
