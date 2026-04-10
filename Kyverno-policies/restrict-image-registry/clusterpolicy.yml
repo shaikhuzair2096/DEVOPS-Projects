@@ -1,0 +1,36 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: restrict-image-registry
+spec:
+  validationFailureAction: Enforce
+  rules:
+  - name: allow-only-artifact-registry
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    validate:
+      message: "Only Artifact Registry images are allowed."
+      pattern:
+        spec:
+          containers:
+          - image: "asia-south1-docker.pkg.dev/PROJECT_ID/*"
+
+  - name: verify-image-signature
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    verifyImages:
+    - imageReferences:
+      - "asia-south1-docker.pkg.dev/PROJECT_ID/*"
+      attestors:
+      - entries:
+        - keys:
+            publicKeys: |-
+              -----BEGIN PUBLIC KEY-----
+              REPLACE_WITH_KMS_PUBLIC_KEY
+              -----END PUBLIC KEY-----
