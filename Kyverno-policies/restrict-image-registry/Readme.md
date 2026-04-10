@@ -52,4 +52,36 @@ gcloud kms keys create cosign-key \
   --default-algorithm=ec-sign-p256-sha256
 
 ```
-  
+## Step 2 — Grant Signing Permission
+```bash
+gcloud kms keys add-iam-policy-binding cosign-key \
+  --location=asia-south1 \
+  --keyring=cosign-keyring \
+  --member="serviceAccount:CI-SA@PROJECT_ID.iam.gserviceaccount.com" \
+  --role="roles/cloudkms.signerVerifier"
+```
+## Step 3 — Get Public Key
+```bash
+gcloud kms keys versions get-public-key 1 \
+  --location=asia-south1 \
+  --keyring=cosign-keyring \
+  --key=cosign-key
+```
+## Step 4 — Push Image to Artifact Registry
+```bash
+docker build -t asia-south1-docker.pkg.dev/PROJECT_ID/app/app:v1 .
+
+docker push asia-south1-docker.pkg.dev/PROJECT_ID/app/app:v1
+```
+
+## Step 5 — Sign Image using Cosign + KMS
+```bash
+cosign sign \
+  --key gcpkms://projects/PROJECT_ID/locations/asia-south1/keyRings/cosign-keyring/cryptoKeys/cosign-key \
+  asia-south1-docker.pkg.dev/PROJECT_ID/app/app:v1
+```
+
+## Step 6 — Deploy Policy
+```bash
+kubectl apply -f policy.yaml
+```
