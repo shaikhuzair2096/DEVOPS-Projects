@@ -50,8 +50,6 @@ gcloud kms keys create cosign-key \
   --keyring=cosign-keyring \
   --purpose=asymmetric-signing \
   --default-algorithm=ec-sign-p256-sha256
-'''
- ## Step 2 — Grant Signing Permission
 
- ```bash
+ <b>```</b>
   
