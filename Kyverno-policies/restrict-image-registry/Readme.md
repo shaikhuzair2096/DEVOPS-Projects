@@ -32,7 +32,7 @@ flowchart TD
     F --> G{Decision}
     G -->|Valid| H[ALLOW]
     G -->|Invalid| I[DENY]
-
+```
 ---
 
 ## Step 1 — Create KMS Key
