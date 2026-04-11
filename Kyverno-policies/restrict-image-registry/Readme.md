@@ -22,20 +22,16 @@ This eliminates the need for manual approval workflows and ensures only trusted 
 ---
 
 ## Architecture Flow
-
-Developer / CI Pipeline
-        ↓
-Build Container Image
-        ↓
-Push to Artifact Registry
-        ↓
-Sign Image using Cosign + GCP KMS
-        ↓
-Deploy to Kubernetes
-        ↓
-Kyverno verifies signature
-        ↓
-ALLOW / DENY
+```mermaid
+flowchart TD
+    A[Developer / CI Pipeline] --> B[Build Container Image]
+    B --> C[Push to Artifact Registry]
+    C --> D[Sign Image using Cosign + GCP KMS]
+    D --> E[Deploy to Kubernetes]
+    E --> F[Kyverno verifies signature]
+    F --> G{Decision}
+    G -->|Valid| H[ALLOW]
+    G -->|Invalid| I[DENY]
 
 ---
 
