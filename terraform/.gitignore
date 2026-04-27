@@ -1,0 +1,70 @@
+# =========================
+# Terraform
+# =========================
+
+# Local Terraform directories
+.terraform/
+
+# Terraform state files
+*.tfstate
+*.tfstate.*
+
+# Crash logs
+crash.log
+
+# Sensitive variable files
+*.tfvars
+*.tfvars.json
+
+# Override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform plan output
+*.tfplan
+
+# =========================
+# Credentials / Secrets
+# =========================
+
+# Service account keys
+*.json
+
+# Environment files
+.env
+.env.*
+
+# =========================
+# OS / System Files
+# =========================
+
+.DS_Store
+Thumbs.db
+
+# =========================
+# Editor / IDE
+# =========================
+
+.vscode/
+.idea/
+
+# =========================
+# Logs
+# =========================
+
+*.log
+
+# =========================
+# Node (if used later)
+# =========================
+
+node_modules/
+
+# =========================
+# Python (if used later)
+# =========================
+
+__pycache__/
+*.pyc
